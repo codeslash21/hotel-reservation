@@ -68,7 +68,7 @@ public class ReservationService {
         Set<IRoom> reservedRooms = new HashSet<>();
         for(List<Reservation> reservationList : reservationMap.values()) {
             for(Reservation reservation : reservationList) {
-                if(!reservation.isPeriodReserved(checkInDate, checkOutDate))
+                if(reservation.isPeriodReserved(checkInDate, checkOutDate))
                     reservedRooms.add(reservation.getRoom());
             }
         }
