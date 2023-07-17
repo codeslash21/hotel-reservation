@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * This class is to create room object. It implements IRoom
+ * @see model.IRoom
+ */
 public class Room implements IRoom {
     protected String roomNumber;
     protected double roomPrice;
