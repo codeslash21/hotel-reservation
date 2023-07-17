@@ -43,15 +43,16 @@ public class ReservationService {
      * @return true id room is booked otherwise false
      */
     protected static boolean isRoomReserved(IRoom room, Date checkInDate, Date checkOutDate) {
-        Set<IRoom> reservedRooms = getAllReservedRooms(checkInDate, checkOutDate);
+        Collection<IRoom> reservedRooms = getAllReservedRooms(checkInDate, checkOutDate);
         if(reservedRooms.contains(room))
             return true;
         return false;
     }
-    public static List<IRoom> findRooms(Date checkInDate, Date checkOutDate) {
+
+    public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate) {
         List<IRoom> availableRooms = new ArrayList<>();
-        List<IRoom> allRooms = getAllRooms();
-        Set<IRoom> reservedRooms = getAllReservedRooms(checkInDate, checkOutDate);
+        Collection<IRoom> allRooms = getAllRooms();
+        Collection<IRoom> reservedRooms = getAllReservedRooms(checkInDate, checkOutDate);
         for(IRoom room : allRooms) {
             if(!reservedRooms.contains(room)) {
                 availableRooms.add(room);
@@ -59,10 +60,11 @@ public class ReservationService {
         }
         return availableRooms;
     }
-    protected static List<IRoom> getAllRooms() {
+
+    public static Collection<IRoom> getAllRooms() {
         return new ArrayList<IRoom>(roomMap.values());
     }
-    protected static Set<IRoom> getAllReservedRooms(Date checkInDate, Date checkOutDate) {
+    protected static Collection<IRoom> getAllReservedRooms(Date checkInDate, Date checkOutDate) {
         Set<IRoom> reservedRooms = new HashSet<>();
         for(List<Reservation> reservationList : reservationMap.values()) {
             for(Reservation reservation : reservationList) {
@@ -72,7 +74,8 @@ public class ReservationService {
         }
         return reservedRooms;
     }
-    public static List<Reservation> getCustomersReservation(Customer customer) {
+
+    public static Collection<Reservation> getCustomersReservation(Customer customer) {
         return reservationMap.get(customer);
     }
     public static void printAllReservation() {
