@@ -48,6 +48,7 @@ public class ReservationService {
             return true;
         return false;
     }
+
     public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate) {
         List<IRoom> availableRooms = new ArrayList<>();
         Collection<IRoom> allRooms = getAllRooms();
@@ -59,6 +60,7 @@ public class ReservationService {
         }
         return availableRooms;
     }
+
     public static Collection<IRoom> getAllRooms() {
         return new ArrayList<IRoom>(roomMap.values());
     }
@@ -72,6 +74,7 @@ public class ReservationService {
         }
         return reservedRooms;
     }
+
     public static Collection<Reservation> getCustomersReservation(Customer customer) {
         return reservationMap.get(customer);
     }
