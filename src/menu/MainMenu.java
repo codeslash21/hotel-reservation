@@ -11,7 +11,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * This class is to create main menu and provide necessary functionalities correspondin to each menu option
+ */
 public class MainMenu {
+    /**
+     * This method will print the Main Menu
+     */
     public static void mainMenu() {
         List<String> menuList = new ArrayList<>();
         menuList.add("\n=================================");
@@ -27,6 +33,13 @@ public class MainMenu {
         for(String str:menuList)
             System.out.println(str);
     }
+
+    /**
+     * This method will take unser input and execute corresponding option
+     * @param scanner
+     * @param option
+     * @return showMenu Return true if user want to see the menu again or false if user want to exit the application
+     */
     public static boolean executeMainMenuOption(Scanner scanner, Integer option) {
         boolean showMenu=true;
         switch(option) {
@@ -51,6 +64,12 @@ public class MainMenu {
         return showMenu;
     }
 
+    /**
+     * This method is to find a vacant rooms for the given check-in and check-out date. If no room is available it show recommended room options
+     * on alternate days. It shows recommended options till max 7 days from the given check-in date. If there is no room available even with new
+     * recommended date it will show message "No room available"
+     * @param scanner
+     */
     public static void findAndReserveRoom(Scanner scanner) {
         Date checkInDate = getvalidCheckInDate(scanner);
         Date checkOutDate = getValidCheckOutDate(scanner, checkInDate);
@@ -92,6 +111,13 @@ public class MainMenu {
         System.out.println("Thank You! Your booking is successful. Please see your reservation details below.");
         System.out.println(reservation);
     }
+
+    /**
+     * This method is to allow user to select a room from available options for reservation and return that room
+     * @param scanner
+     * @param availableRooms
+     * @return room,
+     */
     private static IRoom selectRoomForReservation(Scanner scanner, Collection<IRoom> availableRooms) {
         IRoom room = null;
         boolean validNumber = false;
@@ -109,6 +135,13 @@ public class MainMenu {
         }
         return room;
     }
+
+    /**
+     * This method is to get the customer account email. If the customer already has a account then it takes the email from customer input
+     * or it asks the customer to create an account and takes the email of the account. It return the email of customer account.
+     * @param scanner
+     * @return email
+     */
     private static String getCustomerAccountEmail(Scanner scanner) {
         boolean hasAccount=false;
         String email = null;
@@ -128,6 +161,11 @@ public class MainMenu {
         }
         return email;
     }
+    /**
+     * This method is to take correct choice from customer among yes/no and return true if the choice is yes or false if choice is no
+     * @param scanner
+     * @return choice
+     */
     public static boolean takeChoice(Scanner scanner) {
         boolean validInput=false;
         String choice = null;
@@ -145,6 +183,13 @@ public class MainMenu {
         }
         return choiceValue;
     }
+
+    /**
+     * This method shows all the available rooms and take customer input as he wants to book a room or not
+     * @param scanner
+     * @param availableRooms
+     * @return wantToBook true if customer wants to book or false customer does not want
+     */
     private static boolean showRoomAndBook(Scanner scanner, Collection<IRoom> availableRooms) {
         boolean wantToBook=false;
         for(IRoom room:availableRooms) {
@@ -161,12 +206,26 @@ public class MainMenu {
         }
         return wantToBook;
     }
+
+    /**
+     * This method return new date incremented by given number of days
+     * @param currDate
+     * @param days
+     * @return Date object
+     */
     private static Date getRecommendedDate(Date currDate, int days) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currDate);
         calendar.add(calendar.DATE, days);
         return calendar.getTime();
     }
+
+    /**
+     * This method take valid check-out date from custoemr. It confirms date given by customer follows the format and after check-in date
+     * @param scanner
+     * @param checkInDate
+     * @return checkOutDate
+     */
     private static Date getValidCheckOutDate(Scanner scanner, Date checkInDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date checkOutDate = null;
@@ -188,6 +247,13 @@ public class MainMenu {
         }
         return checkOutDate;
     }
+
+    /**
+     * This method takes valid check-in date from customer. It confirms date given by cusotmer follows the specified format and check-in date
+     * not in past
+     * @param scanner
+     * @return checkInDate
+     */
     private static Date getvalidCheckInDate(Scanner scanner) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date checkInDate = null;
@@ -210,6 +276,12 @@ public class MainMenu {
         }
         return checkInDate;
     }
+
+    /**
+     * This method returns all the reservations a customer has. If the customer does not has any reservation then it shows message customer
+     * does not has any account. If there is no account related to the given email then it shows message - there is no account
+     * @param scanner
+     */
     public static void getCustomerReservations(Scanner scanner) {
         System.out.println("Enter your registered email address (name@example.com)");
         Customer customer=null;
@@ -233,6 +305,13 @@ public class MainMenu {
         for(Reservation reservation:customerReservations)
             System.out.println(reservation.toString());
     }
+
+    /**
+     * This method creates customer account with the details given by customer. it checks the given email follows the vallid pattern or not.
+     * After successful creation of the accout it returns the email associated to the customer.
+     * @param scanner
+     * @return email
+     */
     public static String createAccount(Scanner scanner) {
         System.out.println("Please enter your details 👇");
         System.out.println("First Name: ");
@@ -254,6 +333,11 @@ public class MainMenu {
         }
         return email;
     }
+
+    /**
+     * This method shows admin panel and continue to do so until admin wants to go back to main menu
+     * @param scanner
+     */
     public static void showAdminPanel(Scanner scanner) {
         boolean keepRunning = true;
         while(keepRunning) {
