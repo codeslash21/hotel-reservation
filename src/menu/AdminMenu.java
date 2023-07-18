@@ -9,7 +9,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class is about to create admin menu and the functionalities corresponding to each menu option
+ */
 public class AdminMenu {
+    /**
+     * This method will print the Admin Panel to CLI
+     */
     public static void adminMenu() {
         List<String> menuList = new ArrayList<>();
         menuList.add("\n=================================");
@@ -25,6 +31,13 @@ public class AdminMenu {
         for(String str:menuList)
             System.out.println(str);
     }
+
+    /**
+     * This method is to take admin input and execute respective option
+     * @param scanner
+     * @param option
+     * @return showMenu return true if admin wants to see the menu again or false if want to go back to main menu
+     */
     public static boolean executeAdminMenuOption(Scanner scanner, int option) {
         boolean showMenu = true;
         switch (option) {
@@ -48,6 +61,10 @@ public class AdminMenu {
         }
         return showMenu;
     }
+
+    /**
+     * This method will print all the registered customers
+     */
     public static void seeAllCustomers() {
         Collection<Customer> customers = AdminResource.getAllCustomer();
         if(customers.isEmpty()) {
@@ -58,6 +75,10 @@ public class AdminMenu {
             System.out.println(customer);
         }
     }
+
+    /**
+     * This method will print all the added rooms
+     */
     public static void seeAllRooms() {
         Collection<IRoom> rooms = AdminResource.getAllRooms();
         if(rooms.isEmpty()) {
@@ -68,9 +89,18 @@ public class AdminMenu {
             System.out.println(room);
         }
     }
+
+    /**
+     * This method will all the reservations in the record
+     */
     public static void seeAllReservations() {
         AdminResource.displayAllReservation();
     }
+
+    /**
+     * This method allow admin to add a room for booking
+     * @param scanner
+     */
     public static void addRooms(Scanner scanner) {
         List<IRoom> rooms = new ArrayList<>();
         boolean continueAdding=true;
@@ -82,6 +112,13 @@ public class AdminMenu {
         } while(continueAdding);
         AdminResource.addRoom(rooms);
     }
+
+    /**
+     * This method will create a IRoom object with details taken from the admin and return that
+     * @param scanner
+     * @return room
+     * @see model.IRoom
+     */
     private static IRoom createRoom(Scanner scanner) {
         String roomNumber = getRoomNumber(scanner);
         double roomPrice = getRoomPrice(scanner);
@@ -89,6 +126,13 @@ public class AdminMenu {
         Room room = new Room(roomNumber, roomPrice, roomType);
         return room;
     }
+
+    /**
+     * This method will return valid room type taken from the admin and return that
+     * @param scanner
+     * @return roomType
+     * @see model.RoomType
+     */
     private static RoomType getRoomType(Scanner scanner) {
         RoomType roomType = null;
         Integer roomTypeValue=0;
@@ -117,6 +161,12 @@ public class AdminMenu {
         }
         return roomType;
     }
+
+    /**
+     * This method will return valid room price taken from the admin
+     * @param scanner
+     * @return roomPrice
+     */
     private static double getRoomPrice(Scanner scanner) {
         double roomPrice = 0.0;
         boolean validPrice=false;
@@ -135,6 +185,12 @@ public class AdminMenu {
         }
         return roomPrice;
     }
+
+    /**
+     * This method will return valid and unique room number taken from the admin
+     * @param scanner
+     * @return roomNumber
+     */
     private static String getRoomNumber(Scanner scanner) {
         String roomNumber = null;
         boolean validNumber = false;
@@ -158,6 +214,12 @@ public class AdminMenu {
         }
         return roomNumber;
     }
+
+    /**
+     * This method is to take correct choice from admin among yes/no and return true if the choice is yes or false if choice is no
+     * @param scanner
+     * @return choice
+     */
     private static boolean takeChoice(Scanner scanner) {
         boolean validInput=false;
         String choice = null;
